@@ -3,6 +3,7 @@ package interviewbit.binarysearch;
 import common.Interval;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.jar.Pack200;
 
 /**
@@ -17,7 +18,7 @@ public class Common {
      * @param x
      * @return
      */
-    public static final Integer binarySearch(ArrayList<Integer> A, Interval interval, Integer x) {
+    public static final Integer binarySearch(List<Integer> A, Interval interval, Integer x) {
         if (interval.start > interval.end) return null;
         if (interval.start == interval.end) {
             if (A.get(interval.start) == x) return interval.start;
@@ -39,7 +40,7 @@ public class Common {
      * @param x
      * @return
      */
-    public static final Integer countBinarySearch(ArrayList<Integer> A, Integer x) {
+    public static final Integer countBinarySearch(List<Integer> A, Integer x) {
         int start = 0, end = A.size() - 1;
 
         while(true) {
@@ -56,6 +57,29 @@ public class Common {
                 return mid;
             }
         }
+    }
+
+    /**
+     * Greater neighbour of integer x using iterative binary search
+     * @param A
+     * @param x
+     * @return
+     */
+    public static final Integer largerNeighbourBinarySearch(List<Integer> A, Integer x) {
+        int start = 0, end = A.size() - 1;
+
+        while(start <= end) {
+            int mid = start + (end - start)/2;
+            if (A.get(mid+1) > x && A.get(mid) > x) {
+                end = mid - 1;
+            } else if (A.get(mid) < x && A.get(mid+1) < x) {
+                start = mid + 2;
+            } else {
+                return mid;
+            }
+        }
+
+        return null;
     }
 
 }
