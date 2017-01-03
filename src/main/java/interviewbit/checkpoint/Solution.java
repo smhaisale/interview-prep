@@ -1,6 +1,8 @@
 package interviewbit.checkpoint;
 
+import apple.laf.JRSUIUtils;
 import common.ListNode;
+import common.TreeNode;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -80,5 +82,39 @@ public class Solution {
         }
         if (n > 1) subtract(a, 1, n);
         return a;
+    }
+
+    private ArrayList<TreeNode> generate(int begin, int end) {
+        ArrayList<TreeNode> result = new ArrayList<TreeNode>();
+        if (begin > end) return result;
+
+        if (begin == end) {
+            result.add(new TreeNode(begin));
+            return result;
+        }
+
+        for(int i = begin; i <= end; i++) {
+            ArrayList<TreeNode> left = generate(begin, i-1);
+            ArrayList<TreeNode> right = generate(i+1, end);
+            for(int j = 0; j < left.size(); j++) {
+                for(int k = 0; k < left.size(); k++) {
+                    TreeNode root = new TreeNode(i);
+                    root.left = left.get(j);
+                    root.right = right.get(k);
+                    result.add(root);
+                }
+            }
+        }
+
+        return result;
+    }
+
+    /**
+     * https://www.interviewbit.com/problems/unique-binary-search-trees/
+     * @param a
+     * @return
+     */
+    public ArrayList<TreeNode> generateTrees(int a) {
+        return generate(1, a);
     }
 }
