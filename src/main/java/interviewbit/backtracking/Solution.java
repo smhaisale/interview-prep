@@ -217,6 +217,6 @@ public class Solution {
     }
 
     public static void main(String[] args) {
-        System.out.println(new Solution().grayCode(3));
+        LinkedList<Integer> list;
     }
 }
